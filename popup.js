@@ -1,4 +1,3 @@
-// popup.js - Handles the popup functionality
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('credentialsForm');
     const status = document.getElementById('status');
