@@ -49,23 +49,25 @@ function checkLoginStatus() {
         
         // Try to find username/email and password fields anywhere on the page
         const usernameField = 
-          document.querySelector('input[name="Username"]') || 
-          document.querySelector('input[id="Username"]') ||
+          document.querySelector('input[name="username"]') || 
+          document.querySelector('input[id="username"]') ||
           document.querySelector('input[type="text"][id*="username" i]') ||
           document.querySelector('input[type="email"]') ||
           document.querySelector('input[placeholder*="username" i]') ||
-          document.querySelector('input[placeholder*="email" i]');
+          document.getElementsByClassName("username-input");
           
         const passwordField = 
           document.querySelector('input[name="Password"]') || 
           document.querySelector('input[id="Password"]') ||
-          document.querySelector('input[type="password"]');
+          document.querySelector('input[type="password"]') ||
+          document.getElementsByClassName("password-input");
         
         // Try to find a form or any container of the login fields
         const loginForm = 
           document.querySelector('form[action*="LogIn"]') ||
           (usernameField && usernameField.closest('form')) ||
-          document.querySelector('form');
+          document.querySelector('form')||
+          document.getElementById("header-login");
         
         console.log('Username field found:', !!usernameField);
         console.log('Password field found:', !!passwordField);
