@@ -33,19 +33,7 @@ function checkLoginStatus() {
       // Function to find and interact with the login form
       const findAndSubmitLoginForm = () => {
         // Look for login/signin button that might need to be clicked to show the form
-        const loginButton = 
-          document.querySelector('a[href*="LogIn"]') || 
-          document.querySelector('button:contains("Login")') ||
-          document.querySelector('button:contains("Sign in")') ||
-          document.querySelector('.nav-link:contains("Login")');
-        
-        if (loginButton && !document.querySelector('input[type="password"]')) {
-          console.log('Found login button, clicking to reveal form');
-          loginButton.click();
-          // Wait for the form to appear after clicking
-          setTimeout(findAndSubmitLoginForm, 500);
-          return;
-        }
+  
         
         // Try to find username/email and password fields anywhere on the page
         const usernameField = 
@@ -93,11 +81,7 @@ function checkLoginStatus() {
             
             // Try to find a submit button first
             const submitButton = 
-              document.querySelector('button[type="submit"]') ||
-              document.querySelector('input[type="submit"]') ||
-              document.querySelector('button:contains("Login")') ||
-              document.querySelector('button.btn-primary') ||
-              document.querySelector('button:contains("Sign in")');
+              document.querySelector('[title="Log in"]');
             
             if (submitButton) {
               console.log('Found submit button, clicking it');
