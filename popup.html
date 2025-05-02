@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cardmarket Auto-Login</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 15px;
+      font-family: Arial, sans-serif;
+    }
+    label, input, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    button {
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .status {
+      margin-top: 10px;
+      padding: 5px;
+      text-align: center;
+    }
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <h2>Cardmarket Auto-Login</h2>
+  <form id="credentialsForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" required>
+    
+    <label for="password">Password:</label>
+    <input type="password" id="password" required>
+    
+    <button type="submit">Save Credentials</button>
+  </form>
+  
+  <div id="status" class="status"></div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
