@@ -6,12 +6,12 @@ function checkLoginStatus() {
     if (isLoggedIn) {
       return;
     }
-    
     // Look for a login form in the navigation bar
     loginViaNavbar();
   }
   
   function loginViaNavbar() {
+
     // Get stored credentials
     chrome.storage.sync.get(['username', 'password'], function(credentials) {
       if (!credentials.username || !credentials.password) {
@@ -20,19 +20,21 @@ function checkLoginStatus() {
       
       // Function to find and interact with the login form
       const findAndSubmitLoginForm = () => {
-        // Look for login/signin button that might need to be clicked to show the form
-  
-        
+          
         // Try to find username/email and password fields anywhere on the page
         const usernameField = document.querySelector(".username-input");
         const passwordField = document.querySelector(".password-input");
+
+          // Try to find a submit button first
+        const submitButton = document.querySelector('[title="Log in"]');
+
+        if (usernameField.value && passwordField.value){
+          submitButton.click();
+          return;
+        }
         
         // Try to find a form or any container of the login fields
         const loginForm = document.getElementById("header-login");
-        
-        console.log('Username field found:', !!usernameField);
-        console.log('Password field found:', !!passwordField);
-        console.log('Login form found:', !!loginForm);
         
         // If we found username and password fields
         if (usernameField && passwordField) {
@@ -52,9 +54,7 @@ function checkLoginStatus() {
           // Small delay before submission
           setTimeout(() => {
             
-            // Try to find a submit button first
-            const submitButton = 
-              document.querySelector('[title="Log in"]');
+          
             
             if (submitButton) {
               submitButton.click();
