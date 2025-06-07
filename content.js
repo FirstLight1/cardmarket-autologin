@@ -27,12 +27,9 @@ function checkLoginStatus() {
 
           // Try to find a submit button first
         const submitButton = document.querySelector('[title="Log in"]');
-
-        if (usernameField.value && passwordField.value){
-          submitButton.click();
-          return;
-        }
         
+
+        console.log("no value in username and password field");
         // Try to find a form or any container of the login fields
         const loginForm = document.getElementById("header-login");
         
@@ -58,8 +55,6 @@ function checkLoginStatus() {
             
             if (submitButton) {
               submitButton.click();
-            } else if (loginForm) {
-              loginForm.submit();
             }
           }, 500);
         }

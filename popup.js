@@ -3,10 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const status = document.getElementById('status');
     
     // Load saved credentials if they exist
-    chrome.storage.sync.get(['username', 'password'], function(items) {
+    chrome.storage.sync.get(['username'], function(items) {
       if (items.username) {
         document.getElementById('username').value = items.username;
-        document.getElementById('password').value = items.password || '';
+        document.getElementById('password').value = '';
       }
     });
     
@@ -23,11 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
       }, function() {
         status.textContent = 'Credentials saved!';
         status.className = 'status success';
-        
+
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+
         setTimeout(function() {
           status.textContent = '';
           status.className = 'status';
         }, 3000);
       });
+      
     });
   });
