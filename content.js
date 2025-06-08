@@ -32,10 +32,10 @@ function getKey(keyMaterial, saltBytes) {
 }
 
 // Decrypt password
-async function decrypt(username, passwordArray, token, salt, iv) {
-    const keyMaterial = await getKeyMaterial(username, token);
-    const key = await getKey(keyMaterial, salt);
-    const encryptedBytes = new Uint8Array(passwordArray);
+async function decrypt(credObj) {
+    const keyMaterial = await getKeyMaterial(credObj.username, credObj.token);
+    const key = await getKey(keyMaterial, credObj.salt);
+    const encryptedBytes = new Uint8Array(credObj.password);
 
     if (!key) {
         return;
@@ -44,7 +44,7 @@ async function decrypt(username, passwordArray, token, salt, iv) {
     let decrypted = await window.crypto.subtle.decrypt(
         {
             name: "AES-GCM",
-            iv: iv,
+            iv: credObj.iv,
         },
         key,
         encryptedBytes.buffer,
@@ -64,7 +64,6 @@ function checkLoginStatus() {
     }
 
     // Look for a login form in the navigation bar
-    console.log("checking log in status");
     loginViaNavbar();
 }
 
@@ -73,18 +72,12 @@ function loginViaNavbar() {
     // Get stored credentials and things to derive encryption key
     chrome.storage.local.get(['username', 'password', 'token', 'salt', 'iv'], function (credentials) {
         if (!credentials.username || !credentials.password) {
-            console.log("returning");
             return;
         } else {
             credentials.token = new Uint8Array(credentials.token);
             credentials.salt = new Uint8Array(credentials.salt);
             credentials.iv = new Uint8Array(credentials.iv);
         }
-
-        console.log("trying to log in");
-
-        // Combine username and token
-
 
         // Function to find and interact with the login form
         const findAndSubmitLoginForm = () => {
@@ -100,21 +93,19 @@ function loginViaNavbar() {
             if (usernameField && passwordField) {
 
                 // Fill in the fields
-                usernameField.value = credentials.username;
-                decrypt(credentials.username, credentials.password, credentials.token, credentials.salt, credentials.iv)
-                    .then(plaintext => {
-                        passwordField.value = plaintext;
-
+                decrypt(credentials)
+                .then(plaintext => {
+                  
+                      usernameField.value = credentials.username;
+                      passwordField.value = plaintext;
                         // Dispatch input events to trigger any listeners
                         usernameField.dispatchEvent(new Event('input', { bubbles: true }));
                         passwordField.dispatchEvent(new Event('input', { bubbles: true }));
                         usernameField.dispatchEvent(new Event('change', { bubbles: true }));
                         passwordField.dispatchEvent(new Event('change', { bubbles: true }));
-                        console.log("event dispatched");
 
                         // Small delay before submission
                         if (submitButton) {
-                            console.log("button found");
                             submitButton.click();
                         };
                     });

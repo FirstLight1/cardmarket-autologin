@@ -1,3 +1,20 @@
+let turnedOn = true;
+console.log("here");
+const button = document.querySelector(".onOffBtn");
+
+button.addEventListener('click', () =>{
+    button.classList.toggle("off");
+    if(turnedOn === true){
+        turnedOn = false;
+    } else{
+      turnedOn = true;
+    }
+});
+
+
+
+if(turnedOn === true){
+console.log("on");
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("credentialsForm");
     const status = document.getElementById("status");
@@ -84,6 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return new Uint8Array(ciphertext);
     }
 
+
     // Load saved credentials if they exist
     chrome.storage.local.get(["username"], function (items) {
         if (items.username) {
@@ -122,3 +140,4 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     });
 });
+};

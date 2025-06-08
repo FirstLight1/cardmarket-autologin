@@ -10,7 +10,7 @@
     }
     label, input, button {
       display: block;
-      width: 100%;
+      width: 292px;
       margin-bottom: 10px;
     }
     button {
@@ -20,6 +20,20 @@
       padding: 8px;
       border-radius: 4px;
       cursor: pointer;
+      width: 100%;
+    }
+    .header{
+      display: flex;
+      align-items: center;
+    }
+    .onOffBtn{
+      width: 40px;
+      height: 40px;
+      font-size: 10px;
+      background-color: rgb(72, 201, 72);
+    }
+    .off{
+      background-color: rgb(255, 60, 60);
     }
     .status {
       margin-top: 10px;
@@ -34,10 +48,17 @@
       background-color: #f8d7da;
       color: #721c24;
     }
+    .buttonImage{
+      height: 100%;
+      width: 100%;
+    }
   </style>
 </head>
 <body>
-  <h2>Cardmarket Auto-Login</h2>
+  <div class="header">
+    <h2>Cardmarket Auto Login</h2>
+    <div><button class="onOffBtn"><img src="images/on button.webp" class="buttonImage"></button></div>
+  </div>
   <form id="credentialsForm">
     <label for="username">Username:</label>
     <input type="text" id="username" required>
