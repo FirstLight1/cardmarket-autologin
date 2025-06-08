@@ -13,7 +13,7 @@ function checkLoginStatus() {
   function loginViaNavbar() {
 
     // Get stored credentials
-    chrome.storage.sync.get(['username', 'password'], function(credentials) {
+    chrome.storage.local.get(['username', 'password'], function(credentials) {
       if (!credentials.username || !credentials.password) {
         return;
       }

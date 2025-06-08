@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const status = document.getElementById('status');
     
     // Load saved credentials if they exist
-    chrome.storage.sync.get(['username'], function(items) {
+    chrome.storage.local.get(['username'], function(items) {
       if (items.username) {
         document.getElementById('username').value = items.username;
         document.getElementById('password').value = '';
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
       
-      chrome.storage.sync.set({
+      chrome.storage.local.set({
         username: username,
         password: password
       }, function() {
