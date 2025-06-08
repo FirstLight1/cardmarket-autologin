@@ -1,3 +1,59 @@
+function getKeyMaterial(username, tokenBytes) {
+    const enc = new TextEncoder();
+    const tokenHex = Array.from(tokenBytes)
+        .map((b) => b.toString(16).padStart(2, "0"))
+        .join("");
+
+    const combined = `${username}:${tokenHex}`;
+
+    return window.crypto.subtle.importKey(
+        "raw",
+        enc.encode(combined),
+        { name: "PBKDF2" },
+        false,
+        ["deriveBits", "deriveKey"]
+    );
+}
+
+// Derive key from salt and keyMaterial
+function getKey(keyMaterial, saltBytes) {
+    return window.crypto.subtle.deriveKey(
+        {
+            name: "PBKDF2",
+            salt: saltBytes,
+            iterations: 100000,
+            hash: "SHA-256",
+        },
+        keyMaterial,
+        { name: "AES-GCM", length: 256 },
+        true,
+        ["encrypt", "decrypt"]
+    );
+}
+
+// Decrypt password
+async function decrypt(username, passwordArray, token, salt, iv) {
+    const keyMaterial = await getKeyMaterial(username, token);
+    const key = await getKey(keyMaterial, salt);
+    const encryptedBytes = new Uint8Array(passwordArray);
+
+    if (!key) {
+        return;
+    }
+
+    let decrypted = await window.crypto.subtle.decrypt(
+        {
+            name: "AES-GCM",
+            iv: iv,
+        },
+        key,
+        encryptedBytes.buffer,
+    );
+    const dec = new TextDecoder();
+    return dec.decode(decrypted);
+};
+
+
 function checkLoginStatus() {
     // Check if the user is already logged in by looking for common elements that only appear when logged in
     const isLoggedIn =
@@ -28,60 +84,7 @@ function loginViaNavbar() {
         console.log("trying to log in");
 
         // Combine username and token
-        function getKeyMaterial(username, tokenBytes) {
-            const enc = new TextEncoder();
-            const tokenHex = Array.from(tokenBytes)
-                .map((b) => b.toString(16).padStart(2, "0"))
-                .join("");
 
-            const combined = `${username}:${tokenHex}`;
-
-            return window.crypto.subtle.importKey(
-                "raw",
-                enc.encode(combined),
-                { name: "PBKDF2" },
-                false,
-                ["deriveBits", "deriveKey"]
-            );
-        }
-
-        // Derive key from salt and keyMaterial
-        function getKey(keyMaterial, saltBytes) {
-            return window.crypto.subtle.deriveKey(
-                {
-                    name: "PBKDF2",
-                    salt: saltBytes,
-                    iterations: 100000,
-                    hash: "SHA-256",
-                },
-                keyMaterial,
-                { name: "AES-GCM", length: 256 },
-                true,
-                ["encrypt", "decrypt"]
-            );
-        }
-
-        // Decrypt password
-        async function decrypt(username, passwordArray) {
-            const keyMaterial = await getKeyMaterial(username, credentials.token);
-            const key = await getKey(keyMaterial, credentials.salt);
-            const encryptedBytes = new Uint8Array(passwordArray);
-
-            if (!key) {
-                return;
-            }
-
-            let decrypted = await window.crypto.subtle.decrypt(
-                {
-                    name: "AES-GCM",
-                    iv: credentials.iv,
-                },
-                key,
-                encryptedBytes.buffer,
-            );
-            const dec = new TextDecoder();
-            return dec.decode(decrypted);
-        };
 
         // Function to find and interact with the login form
         const findAndSubmitLoginForm = () => {
@@ -98,7 +101,7 @@ function loginViaNavbar() {
 
                 // Fill in the fields
                 usernameField.value = credentials.username;
-                decrypt(credentials.username, credentials.password)
+                decrypt(credentials.username, credentials.password, credentials.token, credentials.salt, credentials.iv)
                     .then(plaintext => {
                         passwordField.value = plaintext;
 
