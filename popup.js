@@ -23,6 +23,20 @@ async function loadOptions(){
 
 loadOptions();
 
+function showPsw(){
+    const x = document.getElementById("password");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+
+document.querySelector(".showPSW").addEventListener('click', () => {
+    showPsw();
+})
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("credentialsForm");
     const status = document.getElementById("status");

@@ -7,6 +7,12 @@ body {
       display: block;
       width: 292px;
       margin-bottom: 10px;
+      margin: 0px;
+      padding: 0px;
+    }
+    label{
+      padding-bottom: 10px;
+      padding-top: 5px;
     }
     button {
       background-color: #4285f4;
@@ -31,6 +37,7 @@ body {
       width: 60px;
       height: 34px;
       margin-left: 15px;
+      padding-bottom: 0px;
     }
 
     .switch input { 
@@ -98,7 +105,18 @@ body {
       background-color: #f8d7da;
       color: #721c24;
     }
-    .buttonImage{
-      height: 100%;
-      width: 100%;
+    .show{
+      display: flex;
+      align-items: center;
+      padding: 0px;
+      margin: 0px;
+    }
+    .show p{
+      margin-left: 10px;
+    }
+    .showPSW{
+      width: 25px;
+      height: 25px;
+      margin: inherit;
+      padding: inherit;
     }
