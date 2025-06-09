@@ -1,20 +1,28 @@
-let turnedOn = true;
-console.log("here");
-const button = document.querySelector(".onOffBtn");
+const options = {};
+const checkbox = document.querySelector(".checkbox");
+checkbox.addEventListener("click", async (event) => {
+    options.state = event.target.checked;
+    chrome.storage.local.set({options});
 
-button.addEventListener('click', () =>{
-    button.classList.toggle("off");
-    if(turnedOn === true){
-        turnedOn = false;
-    } else{
-      turnedOn = true;
+    
+    // Check active tab's URL
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+    if (tab.url.includes("https://www.cardmarket.com")) {
+        // Reload the page if it's the one you're targeting
+        chrome.tabs.reload(tab.id);
     }
-});
 
+})
 
+async function loadOptions(){
+    const data = await chrome.storage.local.get("options");
+    Object.assign(options, data.options);
+    checkbox.checked = Boolean(options.state);
+}
 
-if(turnedOn === true){
-console.log("on");
+loadOptions();
+
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("credentialsForm");
     const status = document.getElementById("status");
@@ -140,4 +148,4 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     });
 });
-};
+

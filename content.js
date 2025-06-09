@@ -1,3 +1,8 @@
+async function loadOptions(){
+    const data = await chrome.storage.local.get("options");
+    return Boolean(data.options.state);
+}
+
 function getKeyMaterial(username, tokenBytes) {
     const enc = new TextEncoder();
     const tokenHex = Array.from(tokenBytes)
@@ -116,10 +121,15 @@ function loginViaNavbar() {
     });
 }
 
-// Wait for the DOM to be fully loaded
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', checkLoginStatus);
-} else {
-    // DOM is already ready
-    checkLoginStatus();
-}
+loadOptions().then((turnedOn) =>{
+    if(turnedOn){
+        // Wait for the DOM to be fully loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', checkLoginStatus);
+        } else {
+            // DOM is already ready
+            checkLoginStatus();
+        }
+    }
+})
+

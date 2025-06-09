@@ -2,62 +2,16 @@
 <html>
 <head>
   <title>Cardmarket Auto-Login</title>
-  <style>
-    body {
-      width: 300px;
-      padding: 15px;
-      font-family: Arial, sans-serif;
-    }
-    label, input, button {
-      display: block;
-      width: 292px;
-      margin-bottom: 10px;
-    }
-    button {
-      background-color: #4285f4;
-      color: white;
-      border: none;
-      padding: 8px;
-      border-radius: 4px;
-      cursor: pointer;
-      width: 100%;
-    }
-    .header{
-      display: flex;
-      align-items: center;
-    }
-    .onOffBtn{
-      width: 40px;
-      height: 40px;
-      font-size: 10px;
-      background-color: rgb(72, 201, 72);
-    }
-    .off{
-      background-color: rgb(255, 60, 60);
-    }
-    .status {
-      margin-top: 10px;
-      padding: 5px;
-      text-align: center;
-    }
-    .success {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    .error {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-    .buttonImage{
-      height: 100%;
-      width: 100%;
-    }
-  </style>
+  <link rel="stylesheet" href="popup.css">
 </head>
 <body>
   <div class="header">
     <h2>Cardmarket Auto Login</h2>
-    <div><button class="onOffBtn"><img src="images/on button.webp" class="buttonImage"></button></div>
+    <div>
+      <label class="switch">
+      <input type="checkbox" checked class="checkbox">
+      <span class="slider round"></span>
+</label></div>
   </div>
   <form id="credentialsForm">
     <label for="username">Username:</label>
