@@ -3,7 +3,7 @@
   "name": "Cardmarket Auto-Login",
   "version": "1.0",
   "description": "Securely auto-login to Cardmarket with encrypted credential storage. Open source and privacy-focused.",
-  "permissions": ["storage", "activeTab", "scripting", "webNavigation"],
+  "permissions": ["storage", "activeTab", "webNavigation"],
   "host_permissions": ["*://*.cardmarket.com/*"],
   "action": {
     "default_popup": "popup.html",
