@@ -1,6 +1,7 @@
 # Cardmarket Auto-Login Extension
 
 A secure Chrome extension for auto-login to Cardmarket with AES-256 encrypted credential storage.
+If you like this extension you can support me here: https://ko-fi.com/firstlight
 
 ## Features
 - 🔒 AES-GCM encryption for passwords
@@ -23,6 +24,8 @@ A secure Chrome extension for auto-login to Cardmarket with AES-256 encrypted cr
 
 ## License
 MIT License - see LICENSE file
+
+
 
 ## Contributing
 Pull requests welcome!
