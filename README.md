@@ -10,7 +10,7 @@ If you like this extension you can support me here: https://ko-fi.com/firstlight
 
 ## Installation
 1. Download from Chrome Web Store:
-2. Or install from source (see Development section)
+2. Or install from source
 
 ## Security
 - Uses Web Crypto API for encryption
