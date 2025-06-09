@@ -1,3 +1,3 @@
 chrome.runtime.onInstalled.addListener(() => {
-    console.log('Cardmarket Auto-Login extension installed');
-  });
+    chrome.storage.local.set({ checked: true }); // default ON
+});

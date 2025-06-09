@@ -2,6 +2,7 @@ body {
       width: 300px;
       padding: 15px;
       font-family: Arial, sans-serif;
+      font-weight: bold;
     }
     label, input, button {
       display: block;
@@ -11,7 +12,7 @@ body {
       padding: 0px;
     }
     label{
-      padding-bottom: 10px;
+      padding-bottom: 5px;
       padding-top: 5px;
     }
     button {
@@ -29,7 +30,6 @@ body {
     }
     .header h2{
       text-align: center;
-      padding-bottom: 12px;
     }
     .switch {
       position: relative;
@@ -38,6 +38,7 @@ body {
       height: 34px;
       margin-left: 15px;
       padding-bottom: 0px;
+      padding-top: 0px;
     }
 
     .switch input { 
@@ -115,8 +116,8 @@ body {
       margin-left: 10px;
     }
     .showPSW{
-      width: 25px;
-      height: 25px;
+      width: 20px;
+      height: 20px;
       margin: inherit;
       padding: inherit;
     }

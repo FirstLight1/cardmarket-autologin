@@ -1,8 +1,16 @@
-const options = {};
 const checkbox = document.querySelector(".checkbox");
+
+async function loadOptions(){
+    chrome.storage.local.get("checked", (data) =>{
+        checkbox.checked = Boolean(data.checked)
+    });
+}
+
+loadOptions();
+
 checkbox.addEventListener("click", async (event) => {
-    options.state = event.target.checked;
-    chrome.storage.local.set({options});
+    const checked = event.target.checked;
+    chrome.storage.local.set({checked});
 
     
     // Check active tab's URL
@@ -14,14 +22,6 @@ checkbox.addEventListener("click", async (event) => {
     }
 
 })
-
-async function loadOptions(){
-    const data = await chrome.storage.local.get("options");
-    Object.assign(options, data.options);
-    checkbox.checked = Boolean(options.state);
-}
-
-loadOptions();
 
 function showPsw(){
     const x = document.getElementById("password");
@@ -125,10 +125,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // Load saved credentials if they exist
-    chrome.storage.local.get(["username"], function (items) {
-        if (items.username) {
+    chrome.storage.local.get(["username", "password"], function (items) {
+        if (items.username && items.password) {
             document.getElementById("username").value = items.username;
-            document.getElementById("password").value = "";
+            document.getElementById("password").placeholder = "Password saved";
+            
         }
     });
 

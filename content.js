@@ -1,6 +1,6 @@
 async function loadOptions(){
-    const data = await chrome.storage.local.get("options");
-    return Boolean(data.options.state);
+    const data = await chrome.storage.local.get("checked");
+    return Boolean(data.checked);
 }
 
 function getKeyMaterial(username, tokenBytes) {
